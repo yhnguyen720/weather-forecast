@@ -43,90 +43,13 @@
                 </div>
                 <div class="col-9">
                     <h4> Today's Conditions </h4>
-                    <div class="border border-primary p-2" id="current-container">
-                        <h5 id="currentcity"></h5>
-                        <img id="icon">
-                        <br>
-                        <p1>Temperature: <span class="temp"></span>&#8457</p1> 
-                        <br>
-                        <p1>Wind: <span class="wind"></span> MPH</p1>
-                        <br>
-                        <p1>Humidity: <span class="humid"></span> %</p1>
-                    </div>
+                    <div id="current-container"></div>
                     <br>
                     <h4> Five Day Forecast </h4>
-                    <div class="container p-0" id="forecast-container">
-                        <div class="row">
-                          <div class="col">
-                            <div class="border border-primary p-2">
-                                <h5 id="day1"></h5>
-                                <img id="day1icon">
-                                <br>
-                                <p1>Temperature: <span class="day1temp"></span>&#8457</p1> 
-                                <br>
-                                <p1>Wind: <span class="day1wind"></span> MPH</p1>
-                                <br>
-                                <p1>Humidity: <span class="day1humid"></span> %</p1>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="border border-primary p-2">
-                                <h5 id="day2"></h5>
-                                <img id="day2icon">
-                                <br>
-                                <p1>Temperature: <span class="day2temp"></span>&#8457</p1> 
-                                <br>
-                                <p1>Wind: <span class="day2wind"></span> MPH</p1>
-                                <br>
-                                <p1>Humidity: <span class="day2humid"></span> %</p1>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="border border-primary p-2">
-                                <h5 id="day3"></h5>
-                                <img id="day3icon">
-                                <br>
-                                <p1>Temperature: <span class="day3temp"></span>&#8457</p1> 
-                                <br>
-                                <p1>Wind: <span class="day3wind"></span> MPH</p1>
-                                <br>
-                                <p1>Humidity: <span class="day3humid"></span> %</p1>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="border border-primary p-2">
-                                <h5 id="day4"></h5>
-                                <img id="day4icon">
-                                <br>
-                                <p1>Temperature: <span class="day4temp"></span>&#8457</p1> 
-                                <br>
-                                <p1>Wind: <span class="day4wind"></span> MPH</p1>
-                                <br>
-                                <p1>Humidity: <span class="day4humid"></span> %</p1>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="border border-primary p-2">
-                                <h5 id="day5"></h5>
-                                <img id="day5icon">
-                                <br>
-                                <p1>Temperature: <span class="day5temp"></span>&#8457</p1> 
-                                <br>
-                                <p1>Wind: <span class="day5wind"></span> MPH</p1>
-                                <br>
-                                <p1>Humidity: <span class="day5humid"></span> %</p1>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-
+                    <div id="forecast-container"></div>
                 </div>
             </div>
         </main>
-
-
-
-
 
         <script 
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
