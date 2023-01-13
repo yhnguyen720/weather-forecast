@@ -1,16 +1,17 @@
-var apiKey = "ff85c82019bc169c433101774a6ff69d";
-var today = dayjs();
+const apiKey = "ff85c82019bc169c433101774a6ff69d";
+const today = dayjs();
 
 $("#date").text(today.format("dddd, MMMM D"));
-$("#current-container").addClass("hide");
+
         
 $("#search").on("click", function (event) {
 	event.preventDefault();
-	var city = $("#city").val();
 
-    $("#current-container").removeClass("hide");
+	const city = $("#city").val();
 
-    var geoUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1" + "&appid=" + apiKey;
+    
+
+    const geoUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1" + "&appid=" + apiKey;
 
     $.ajax({
         url: geoUrl,
@@ -20,7 +21,7 @@ $("#search").on("click", function (event) {
         let lat = response[0].lat;
         let lon = response[0].lon;
 
-        var weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&cnt=6&appid=" + apiKey + "&units=imperial";
+        const weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&cnt=6&appid=" + apiKey + "&units=imperial";
 
         $.ajax({
             url: weatherUrl,
@@ -29,14 +30,14 @@ $("#search").on("click", function (event) {
     
             const weatherList = response.list.map((item) => {
                 return {
-                    temp: item.main.temp,
+                    temp: parseInt(item.main.temp),
                     icon: item.weather[0].icon,
-                    humid: item.main.humidity,
-                    wind: item.wind.speed
+                    humid: parseInt(item.main.humidity),
+                    wind: parseInt(item.wind.speed)
                 }
             })
 
-            var iconUrl = "http://openweathermap.org/img/wn/" + weatherList[0].icon + ".png"
+            const iconUrl = "http://openweathermap.org/img/wn/" + weatherList[0].icon + ".png"
 
             $("#current-container").addClass("card border-primary p-2 shadow")
             $("#current-container").append($("<h5>").addClass("text-capitalize").text(city));
@@ -51,16 +52,19 @@ $("#search").on("click", function (event) {
                 if (i !== 0)
                     {
                         var forecasticonUrl = "http://openweathermap.org/img/wn/" + weatherList[i].icon + ".png"
-
+                        var futureDate = today.add(i, 'day').format("dddd, MMMM D");
+                      
                         const forecast = 
-                            `<div class="card">
-                                <h5> ${date} </h5>
-                                <img class = "icon" src="${forecasticonUrl}" />
-                                <p1> ${weatherList[i].temp} \u00B0F </p1>
-                                <p1> ${weatherList[i].humid} % </p1>
-                                <p1> ${weatherList[i].wind} MPH </p1>
+                            `<div class="flex-container">
+                                <div class="card border-primary shadow p-2">
+                                    <p1> ${futureDate} </p1>
+                                    <img class = "icon-forecast" src="${forecasticonUrl}" />
+                                    <p1> Temperature: ${weatherList[i].temp} \u00B0F </p1>
+                                    <p1> Humidity: ${weatherList[i].humid} % </p1>
+                                    <p1> Wind Speed: ${weatherList[i].wind} MPH </p1>
+                                </div>
                             </div>`
-                    
+                        
                         $("#forecast-container").append(forecast);
                     }
             })
