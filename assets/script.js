@@ -3,8 +3,6 @@ const today = dayjs();
 
 $("#date").text(today.format("dddd, M/D"));
 
-
-
 $("#search").on("click", startApp);
 
 function startApp(){
@@ -28,9 +26,6 @@ function currentCity(){
         let lat = response[0].lat;
         let lon = response[0].lon;
 
-
-        
-
         const weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&cnt=6&appid=" + apiKey + "&units=imperial";
 
         $.ajax({
@@ -49,8 +44,8 @@ function currentCity(){
 
             const iconUrl = "http://openweathermap.org/img/wn/" + weatherList[0].icon + ".png"
 
-            $("#current-container").addClass("card pt-4 pb-4 shadow")
-            $("#current-container").append($("<h5>").addClass("is-capitalized").text(city));
+            $("#current-container").addClass("card p-4 border has-background-info-light m-4 has-text-centered")
+            $("#current-container").append($("<h5>").addClass("is-capitalized is-size-5 bold").text(city));
             $("#current-container").append($("<img>").addClass("icon").attr("src", iconUrl));
             $("#current-container").append($("<br>"));
             $("#current-container").append($("<p1>").text("Temperature: " + weatherList[0].temp + " \u00B0F"));
@@ -65,14 +60,16 @@ function currentCity(){
                     var futureDate = today.add(i, 'day').format("dddd, M/D");
                     
                     const forecast = 
-                        `<div class="flex-container">
-                            <div class="card shadow pt-4 pb-4">
-                                <p1> ${futureDate} </p1>
+                        `<div class="flex-container pt-4 pb-4">
+                            <div class="card p-4 border has-background-info-light">
+                                <p1 class="bold"> ${futureDate} </p1>
                                 <br>
                                 <img class = "icon-forecast" src="${forecasticonUrl}" />
                                 <br>
                                 <p1> Temperature: ${weatherList[i].temp} \u00B0F </p1>
+                                <br>
                                 <p1> Humidity: ${weatherList[i].humid} % </p1>
+                                <br>
                                 <p1> Wind: ${weatherList[i].wind} MPH </p1>
                             </div>
                         </div>`
@@ -98,17 +95,31 @@ function citiesHistory(){
     $("#history").empty();
 
     $.each(uniqueCities, function(i) {
-        const history = `<div class="half">
-                        <button class="button is-info is-light is-fullwidth"> ${uniqueCities[i]} </button>
+        const history = `<div class="shorter">
+                        <button class="button is-info is-light is-fullwidth is-capitalized city-past"> ${uniqueCities[i]} </button>
                         <br>
                         </div>`
         $("#history").append(history);
     })
-}
 
-
+    $(".city-past").on("click", function() {
+        $("#current-container").empty();
+        $("#forecast-container").empty();
+        let city = $(".city-past").textContent;
+        console.log(city);
+        currentCity(city);
+    })
 
     
+
+}
+
+function clearLocalStorage() {
+    localStorage.clear();
+    $("#history").empty();
+}
+
+$("#clear").on("click", clearLocalStorage);
 
 
 
