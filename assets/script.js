@@ -3,7 +3,9 @@ const today = dayjs();
 
 $("#date").text(today.format("dddd, M/D"));
 
-$("#search").on("click", startApp)
+
+
+$("#search").on("click", startApp);
 
 function startApp(){
     $("#current-container").empty();
@@ -22,8 +24,12 @@ function currentCity(){
         url: geoUrl,
         method: "GET",
     }).then(function (response) {  
+
         let lat = response[0].lat;
         let lon = response[0].lon;
+
+
+        
 
         const weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&cnt=6&appid=" + apiKey + "&units=imperial";
 
@@ -43,11 +49,14 @@ function currentCity(){
 
             const iconUrl = "http://openweathermap.org/img/wn/" + weatherList[0].icon + ".png"
 
-            $("#current-container").addClass("card border-primary p-2 shadow")
-            $("#current-container").append($("<h5>").addClass("text-capitalize").text(city));
+            $("#current-container").addClass("card pt-4 pb-4 shadow")
+            $("#current-container").append($("<h5>").addClass("is-capitalized").text(city));
             $("#current-container").append($("<img>").addClass("icon").attr("src", iconUrl));
+            $("#current-container").append($("<br>"));
             $("#current-container").append($("<p1>").text("Temperature: " + weatherList[0].temp + " \u00B0F"));
+            $("#current-container").append($("<br>"));
             $("#current-container").append($("<p1>").text("Humidity: " + weatherList[0].humid + "%"));
+            $("#current-container").append($("<br>"));
             $("#current-container").append($("<p1>").text("Wind: " + weatherList[0].wind + " MPH"));
 
             $.each(weatherList, function(i) {
@@ -57,9 +66,11 @@ function currentCity(){
                     
                     const forecast = 
                         `<div class="flex-container">
-                            <div class="card border-primary shadow p-2">
+                            <div class="card shadow pt-4 pb-4">
                                 <p1> ${futureDate} </p1>
+                                <br>
                                 <img class = "icon-forecast" src="${forecasticonUrl}" />
+                                <br>
                                 <p1> Temperature: ${weatherList[i].temp} \u00B0F </p1>
                                 <p1> Humidity: ${weatherList[i].humid} % </p1>
                                 <p1> Wind: ${weatherList[i].wind} MPH </p1>
@@ -72,14 +83,34 @@ function currentCity(){
         })
     })
 
-    savedCity();
+    citiesHistory()
 
 };
 
-function savedCity(){
+function citiesHistory(){
+    const city = $("#city").val();
+    let cities = JSON.parse(localStorage.getItem("cities")) || [];
+    cities.push(city);
+    localStorage.setItem("cities", JSON.stringify(cities));
+    
+    let uniqueCities = [...new Set(cities)];
+
+    $("#history").empty();
+
+    $.each(uniqueCities, function(i) {
+        const history = `<div class="half">
+                        <button class="button is-info is-light is-fullwidth"> ${uniqueCities[i]} </button>
+                        <br>
+                        </div>`
+        $("#history").append(history);
+    })
+}
+
+
 
     
 
 
-}
+
+  
 
