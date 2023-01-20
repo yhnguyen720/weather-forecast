@@ -38,7 +38,7 @@ $(document).on("click", ".searchedCity", function() {
 function currentWeather(city) {
 
     //passes city input into first url to retrieve geographical coordinates
-    const geoUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1" + "&appid=" + apiKey;
+    const geoUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1" + "&appid=" + apiKey;
 
     $.ajax({
         url: geoUrl,
@@ -71,7 +71,7 @@ function currentWeather(city) {
 
             forecastWeather(weatherList);
 
-            const iconUrl = "http://openweathermap.org/img/wn/" + weatherList[0].icon + ".png"
+            const iconUrl = "https://openweathermap.org/img/wn/" + weatherList[0].icon + ".png"
 
             //creates weather container and append current weather conditions
             $("#current-container").addClass("card p-4 border has-background-info-light m-4 has-text-centered")
@@ -92,7 +92,7 @@ function currentWeather(city) {
 function forecastWeather(weatherList) {
     $.each(weatherList, function(i) {
         if (i !== 0)
-            {const forecasticonUrl = "http://openweathermap.org/img/wn/" + weatherList[i].icon + ".png"
+            {const forecasticonUrl = "https://openweathermap.org/img/wn/" + weatherList[i].icon + ".png"
             
             const futureDate = today.add(i, 'day').format("dddd, M/D");
             
