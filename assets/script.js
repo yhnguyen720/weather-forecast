@@ -116,3 +116,10 @@ function forecastWeather(weatherList) {
     })
 }
 
+//clear button clears local storage and history container
+function clearLocalStorage() {
+    localStorage.clear();
+    $("#history").empty();
+}
+
+$("#clear").on("click", clearLocalStorage);
