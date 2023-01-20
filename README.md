@@ -3,7 +3,7 @@
 ## Deployed Application
 
 ```
-https://yhnguyen720.github.io/weather-forecast/
+[Launch Weather App](https://yhnguyen720.github.io/weather-forecast/)
 ```
 
 
